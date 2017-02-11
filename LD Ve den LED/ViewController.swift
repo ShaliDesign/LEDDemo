@@ -14,11 +14,12 @@ class ViewController: UIViewController {
     var thanhvien = ["ong", "ba", "bo", "me"]
     
     var n = 5
+
     
     
     var _margin: CGFloat = 60
 
-    override func viewDidLoad() {
+    override func viewDidLoad(){
         super.viewDidLoad()
     
         
@@ -27,11 +28,12 @@ class ViewController: UIViewController {
     @IBOutlet weak var LEDTextField: UITextField!
     
     @IBAction func Draw(_ sender: Any) {
+        n = Int(LEDTextField.text!)!
         
         DrawRowOfBall()
-        
+     
     }
-        
+    
     func DrawRowOfBall()
     
     {
