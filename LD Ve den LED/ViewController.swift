@@ -13,26 +13,72 @@ class ViewController: UIViewController {
 
     var thanhvien = ["ong", "ba", "bo", "me"]
     
-    var n = 5
-
+    var lastonLED = -1
     
+    var n = 5
     
     var _margin: CGFloat = 60
 
     override func viewDidLoad(){
         super.viewDidLoad()
     
+        DrawRowOfBall()
+        _ = Timer.scheduledTimer (timeInterval: 0.1, target: self, selector: #selector(runningLED), userInfo: nil, repeats: true)
+        
         
     }
     
     @IBOutlet weak var LEDTextField: UITextField!
     
     @IBAction func Draw(_ sender: Any) {
-        n = Int(LEDTextField.text!)!
+        // n = Int(LEDTextField.text!)!
         
         DrawRowOfBall()
      
     }
+    
+    
+    func runningLED() {
+      
+        
+        if (lastonLED != -1)
+        {
+        turnoffLED()
+        }
+        
+        if (lastonLED != n - 1)
+        
+        {
+            
+        lastonLED = lastonLED + 1
+            
+        }
+        
+        else
+        
+        { lastonLED = 0 }
+        
+        turnonLED()
+    }
+    
+    func turnonLED() {
+        
+        if let ball = self.view.viewWithTag(100 + lastonLED) as? UIImageView
+        {
+        ball.image = UIImage(named: "green")
+        }
+        
+    }
+    
+    func turnoffLED() {
+        
+        if let ball = self.view.viewWithTag(100 + lastonLED) as? UIImageView
+        {
+            ball.image = UIImage(named: "grey")
+        }
+        
+    }
+    
     
     func DrawRowOfBall()
     
@@ -48,6 +94,8 @@ class ViewController: UIViewController {
         let ball = UIImageView(image: image)
        
             ball.center = CGPoint(x: _margin + CGFloat(indexHang) * SpaceBetweenBallX(),y: CGFloat(indexCot)*SpaceBetweenBallY() + _margin)
+         
+        ball.tag = indexHang + 100
                 
         self.view.addSubview(ball)
         
